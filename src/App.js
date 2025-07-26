@@ -995,7 +995,39 @@ const VnTwServiceWebsite = () => {
       </footer>
 
       {/* PDF下載模態框 */}
-      {showPDFModal && <PDFModal />}
+      {showPDFModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+            <h3 className="text-xl font-bold mb-4">下載專業報告</h3>
+            <p className="text-gray-600 mb-4">請輸入您的電子郵件，我們將發送詳細的稅務規劃報告給您。</p>
+            <input
+              type="email"
+              value={emailForPDF}
+              onChange={(e) => setEmailForPDF(e.target.value)}
+              placeholder="您的電子郵件"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg mb-4"
+            />
+            <div className="flex space-x-4">
+              <button
+                onClick={() => setShowPDFModal(false)}
+                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+              >
+                取消
+              </button>
+              <button
+                onClick={() => {
+                  // 這裡可以添加發送郵件的邏輯
+                  setShowPDFModal(false);
+                  setEmailForPDF('');
+                }}
+                className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              >
+                發送報告
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* 增強版浮動聯絡按鈕 */}
       <div className="fixed bottom-6 right-6 space-y-3 z-40">
