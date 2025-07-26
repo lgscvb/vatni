@@ -418,8 +418,8 @@ const VnTwServiceWebsite = () => {
             
             {/* 語言與導航 */}
             <div className="flex items-center space-x-4">
-              <select 
-                value={currentLang} 
+              <select
+                value={currentLang}
                 onChange={(e) => setCurrentLang(e.target.value)}
                 className="px-3 py-1 border border-gray-300 rounded text-sm"
               >
@@ -435,8 +435,8 @@ const VnTwServiceWebsite = () => {
                     key={key}
                     onClick={() => setCurrentPage(key)}
                     className={`px-4 py-2 rounded-lg transition-all font-medium ${
-                      currentPage === key 
-                        ? 'bg-blue-600 text-white shadow-lg' 
+                      currentPage === key
+                        ? 'bg-blue-600 text-white shadow-lg'
                         : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600'
                     }`}
                   >
@@ -446,7 +446,7 @@ const VnTwServiceWebsite = () => {
               </div>
               
               {/* 行動裝置選單按鈕 */}
-              <button 
+              <button
                 onClick={() => setShowMobileMenu(!showMobileMenu)}
                 className="md:hidden p-2 rounded-lg hover:bg-gray-100"
               >
@@ -475,13 +475,179 @@ const VnTwServiceWebsite = () => {
         </div>
       </nav>
 
-      {/* 主要內容將在下一個檔案中繼續 */}
+      {/* 主要內容 */}
       <main>
-        <div className="text-center py-20">
-          <h1 className="text-4xl font-bold mb-4">React 應用程式載入中...</h1>
-          <p className="text-gray-600">正在準備完整的網站功能</p>
-        </div>
+        {currentPage === 'home' && <HomePage />}
+        {currentPage === 'tools' && <ToolsPage />}
+        {/* 其他頁面保持簡化版本以節省空間 */}
+        {currentPage === 'services' && (
+          <div className="max-w-6xl mx-auto px-6 py-12">
+            <h1 className="text-4xl font-bold text-center mb-12">{t.services.title}</h1>
+            <div className="text-center py-16 text-gray-500">
+              <Building className="w-16 h-16 mx-auto mb-4 opacity-50" />
+              <p>詳細服務介紹與方案比較</p>
+            </div>
+          </div>
+        )}
+        {currentPage === 'success' && (
+          <div className="max-w-6xl mx-auto px-6 py-12">
+            <h1 className="text-4xl font-bold text-center mb-12">客戶成功案例</h1>
+            <div className="text-center py-16 text-gray-500">
+              <CheckCircle className="w-16 h-16 mx-auto mb-4 opacity-50" />
+              <p>超過1000位客戶成功案例</p>
+              <p className="text-sm mt-2">5年平均成功率95%以上</p>
+            </div>
+          </div>
+        )}
+        {currentPage === 'pricing' && (
+          <div className="max-w-6xl mx-auto px-6 py-12">
+            <h1 className="text-4xl font-bold text-center mb-12">收費與比較</h1>
+            <div className="text-center py-16 text-gray-500">
+              <DollarSign className="w-16 h-16 mx-auto mb-4 opacity-50" />
+              <p>透明化收費，無隱藏費用</p>
+              <p className="text-sm mt-2">依據服務複雜度提供客製化報價</p>
+            </div>
+          </div>
+        )}
+        {currentPage === 'faq' && (
+          <div className="max-w-4xl mx-auto px-6 py-12">
+            <h1 className="text-4xl font-bold text-center mb-12">常見問題</h1>
+            <div className="space-y-4">
+              {[
+                { q: '我應該申請B00、工作簽證還是其他簽證？', a: '這需要根據您的投資額、學經歷、營運計畫來評估，建議預約免費諮詢，我們可以為您詳細分析最適合的簽證類型。' },
+                { q: '非居留（未滿183天）為什麼要課18%？', a: '這是台灣稅法對非稅務居民的預扣稅率規定，但實際上還有很多細節需要注意，例如租稅協定的適用、海外收入的申報等。' },
+                { q: '成立公司跟設立行號差在哪？', a: '主要差異在責任範圍、稅務結構、未來擴充性。行號負責人需承擔無限責任，公司股東責任僅限於出資額。詳細分析建議諮詢專業顧問。' }
+              ].map((faq, idx) => (
+                <div key={idx} className="bg-white rounded-lg shadow p-6">
+                  <h3 className="font-semibold text-lg mb-2 text-blue-800">{faq.q}</h3>
+                  <p className="text-gray-700">{faq.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </main>
+
+      {/* 增強版Footer */}
+      <footer className="bg-gray-900 text-white py-16">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-4 gap-8">
+            <div>
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+                  <Globe className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <div className="text-xl font-bold">VN-TW Service</div>
+                  <div className="text-xs text-gray-400">您的台灣事業夥伴</div>
+                </div>
+              </div>
+              <p className="text-gray-400 text-sm">
+                專為越南人提供在台灣的全方位法務、稅務、簽證服務。
+                政府認證，值得信賴。
+              </p>
+            </div>
+            
+            <div>
+              <h3 className="text-lg font-semibold mb-4">聯絡我們</h3>
+              <div className="space-y-2 text-sm">
+                <div className="flex items-center">
+                  <Phone className="w-4 h-4 mr-2 text-green-400" />
+                  <span>+886-2-1234-5678</span>
+                </div>
+                <div className="flex items-center">
+                  <Mail className="w-4 h-4 mr-2 text-blue-400" />
+                  <span>info@vn-tw-service.com</span>
+                </div>
+                <div className="flex items-center">
+                  <MessageCircle className="w-4 h-4 mr-2 text-green-400" />
+                  <span>LINE: @vntw-service</span>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <h3 className="text-lg font-semibold mb-4">服務時間</h3>
+              <div className="text-sm text-gray-400 space-y-1">
+                <p>週一至週五：9:00-18:00</p>
+                <p>週六：9:00-12:00</p>
+                <p>緊急諮詢：24小時</p>
+                <p className="text-green-400 font-semibold mt-2">越中英三語服務</p>
+              </div>
+            </div>
+            
+            <div>
+              <h3 className="text-lg font-semibold mb-4">認證資格</h3>
+              <div className="space-y-2 text-sm">
+                <div className="flex items-center">
+                  <Award className="w-4 h-4 mr-2 text-yellow-400" />
+                  <span>經濟部國際育成中心</span>
+                </div>
+                <div className="flex items-center">
+                  <Shield className="w-4 h-4 mr-2 text-blue-400" />
+                  <span>勞動部TTQS認證</span>
+                </div>
+                <div className="flex items-center">
+                  <Scale className="w-4 h-4 mr-2 text-green-400" />
+                  <span>法院認證通譯</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="border-t border-gray-700 mt-12 pt-8 text-center">
+            <p className="text-gray-400">&copy; 2024 VN-TW Service. All rights reserved.</p>
+            <p className="text-sm text-gray-500 mt-2">
+              本網站內容僅供參考，實際服務以正式合約為準
+            </p>
+          </div>
+        </div>
+      </footer>
+
+      {/* PDF下載模態框 */}
+      {showPDFModal && <PDFModal />}
+
+      {/* 增強版浮動聯絡按鈕 */}
+      <div className="fixed bottom-6 right-6 space-y-3 z-40">
+        {/* 急迫性提醒 */}
+        <div className="bg-red-500 text-white px-4 py-2 rounded-full text-sm font-bold animate-pulse">
+          限時免費諮詢
+        </div>
+        
+        <div className="flex flex-col space-y-2">
+          <button className="group bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl transition-all transform hover:scale-110">
+            <MessageCircle className="w-6 h-6" />
+            <span className="absolute right-full mr-3 top-1/2 transform -translate-y-1/2 bg-black text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+              LINE 免費諮詢
+            </span>
+          </button>
+          
+          <button className="group bg-blue-500 hover:bg-blue-600 text-white p-4 rounded-full shadow-2xl transition-all transform hover:scale-110">
+            <Phone className="w-6 h-6" />
+            <span className="absolute right-full mr-3 top-1/2 transform -translate-y-1/2 bg-black text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+              立即來電
+            </span>
+          </button>
+          
+          <button
+            onClick={() => setCurrentPage('tools')}
+            className="group bg-orange-500 hover:bg-orange-600 text-white p-4 rounded-full shadow-2xl transition-all transform hover:scale-110"
+          >
+            <Calculator className="w-6 h-6" />
+            <span className="absolute right-full mr-3 top-1/2 transform -translate-y-1/2 bg-black text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+              免費試算
+            </span>
+          </button>
+        </div>
+      </div>
+
+      {/* 返回頂部按鈕 */}
+      <button
+        onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
+        className="fixed bottom-6 left-6 bg-gray-600 hover:bg-gray-700 text-white p-3 rounded-full shadow-lg transition-all transform hover:scale-110 z-40"
+      >
+        <ChevronDown className="w-5 h-5 transform rotate-180" />
+      </button>
     </div>
   );
 };
