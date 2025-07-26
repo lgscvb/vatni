@@ -13,8 +13,8 @@ RUN npm install
 # 複製原始碼
 COPY . .
 
-# 建置 React 應用程式
-RUN npm run build
+# 建置 React 應用程式，並強制設定公開路徑為根目錄
+RUN PUBLIC_URL=/ npm run build
 
 # 第二階段：使用 nginx 提供靜態檔案
 FROM nginx:alpine
