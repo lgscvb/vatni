@@ -388,6 +388,396 @@ const VnTwServiceWebsite = () => {
     return { riskLevel, risks, recommendation: riskLevel > 5 ? '建議尋求專業風險評估' : '風險可控' };
   };
 
+  // HomePage 元件
+  const HomePage = () => (
+    <div>
+      {/* Hero Section */}
+      <section className="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white py-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <div className="inline-block bg-yellow-400 text-blue-900 px-4 py-2 rounded-full text-sm font-bold mb-6">
+                {t.hero.highlight}
+              </div>
+              <h1 className="text-4xl lg:text-6xl font-bold leading-tight mb-6">
+                {t.hero.title}
+              </h1>
+              <p className="text-xl lg:text-2xl mb-8 text-blue-100">
+                {t.hero.subtitle}
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 mb-8">
+                <button className="bg-yellow-400 hover:bg-yellow-500 text-blue-900 px-8 py-4 rounded-lg font-bold text-lg transition-all transform hover:scale-105 shadow-lg">
+                  {t.hero.cta1}
+                </button>
+                <button
+                  onClick={() => setCurrentPage('tools')}
+                  className="bg-transparent border-2 border-white hover:bg-white hover:text-blue-800 px-8 py-4 rounded-lg font-bold text-lg transition-all"
+                >
+                  {t.hero.cta2}
+                </button>
+              </div>
+              <div className="bg-red-500 text-white px-4 py-2 rounded-lg inline-block animate-pulse">
+                <Clock className="w-4 h-4 inline mr-2" />
+                {t.hero.urgency}
+              </div>
+            </div>
+            <div className="relative">
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8">
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-yellow-400 mb-2">95%+</div>
+                  <div className="text-lg">成功率保證</div>
+                </div>
+                <div className="grid grid-cols-2 gap-4 mt-6">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-yellow-400">1000+</div>
+                    <div className="text-sm">成功案例</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-yellow-400">5年</div>
+                    <div className="text-sm">專業經驗</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 痛點分析 */}
+      <section className="py-20 bg-red-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-red-800 mb-4">{t.painPoints.title}</h2>
+            <p className="text-xl text-red-600">{t.painPoints.subtitle}</p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {t.painPoints.points.map((point, idx) => (
+              <div key={idx} className="bg-white rounded-xl shadow-lg p-6 border-l-4 border-red-500">
+                <div className="flex items-center mb-4">
+                  <AlertTriangle className="w-8 h-8 text-red-500 mr-3" />
+                  <h3 className="text-xl font-bold text-red-800">{point.title}</h3>
+                </div>
+                <p className="text-gray-700 mb-4">{point.description}</p>
+                <div className="bg-red-100 p-3 rounded-lg">
+                  <p className="text-red-800 font-semibold text-sm">{point.consequence}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 服務方案 */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-800 mb-4">{t.services.title}</h2>
+            <p className="text-xl text-gray-600">{t.services.subtitle}</p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {t.services.packages.map((pkg, idx) => (
+              <div key={idx} className="bg-white rounded-xl shadow-xl p-6 border-t-4 border-blue-600 hover:shadow-2xl transition-all transform hover:-translate-y-2">
+                <div className="text-center mb-6">
+                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    {pkg.icon === 'FileText' && <FileText className="w-8 h-8 text-blue-600" />}
+                    {pkg.icon === 'Shield' && <Shield className="w-8 h-8 text-blue-600" />}
+                    {pkg.icon === 'Building' && <Building className="w-8 h-8 text-blue-600" />}
+                    {pkg.icon === 'Award' && <Award className="w-8 h-8 text-blue-600" />}
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-800 mb-2">{pkg.name}</h3>
+                  <div className="text-2xl font-bold text-blue-600 mb-1">{pkg.price}</div>
+                  <div className="text-sm text-gray-500">{pkg.timeframe}</div>
+                </div>
+                <ul className="space-y-2 mb-6">
+                  {pkg.services.map((service, serviceIdx) => (
+                    <li key={serviceIdx} className="flex items-center text-sm">
+                      <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                      <span>{service}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="bg-yellow-100 p-3 rounded-lg text-center">
+                  <span className="text-yellow-800 font-semibold text-sm">{pkg.highlight}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 客戶見證 */}
+      <section className="py-20 bg-gray-100">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-800 mb-4">{t.testimonials.title}</h2>
+            <p className="text-xl text-gray-600">{t.testimonials.subtitle}</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {t.testimonials.reviews.map((review, idx) => (
+              <div key={idx} className="bg-white rounded-xl shadow-lg p-6">
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                    <Users className="w-6 h-6 text-blue-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-800">{review.name}</h4>
+                    <p className="text-sm text-gray-600">{review.title}</p>
+                    <p className="text-xs text-gray-500">{review.location}</p>
+                  </div>
+                </div>
+                <div className="flex mb-4">
+                  {[...Array(review.rating)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
+                  ))}
+                </div>
+                <p className="text-gray-700 mb-4 text-sm">{review.content}</p>
+                <div className="bg-green-100 p-3 rounded-lg">
+                  <p className="text-green-800 font-semibold text-sm">{review.result}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+
+  // ToolsPage 元件
+  const ToolsPage = () => {
+    const [taxData, setTaxData] = useState({
+      income: '',
+      days183: false,
+      hasOverseasIncome: false,
+      businessType: 'general'
+    });
+    const [b00Data, setB00Data] = useState({
+      investment: '',
+      revenue: '',
+      employees: '',
+      experience: ''
+    });
+    const [taxResult, setTaxResult] = useState(null);
+    const [b00Result, setB00Result] = useState(null);
+
+    const handleTaxCalculation = () => {
+      const result = calculateAdvancedTax(
+        parseInt(taxData.income) || 0,
+        taxData.days183,
+        taxData.hasOverseasIncome,
+        taxData.businessType
+      );
+      setTaxResult(result);
+    };
+
+    const handleB00Assessment = () => {
+      const result = assessB00Eligibility(
+        parseInt(b00Data.investment) || 0,
+        parseInt(b00Data.revenue) || 0,
+        parseInt(b00Data.employees) || 0,
+        parseInt(b00Data.experience) || 0
+      );
+      setB00Result(result);
+    };
+
+    return (
+      <div className="max-w-7xl mx-auto px-6 py-12">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-800 mb-4">{t.calculator.title}</h1>
+          <p className="text-xl text-gray-600">{t.calculator.subtitle}</p>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-12">
+          {/* 稅務計算器 */}
+          <div className="bg-white rounded-xl shadow-lg p-8">
+            <h2 className="text-2xl font-bold text-blue-800 mb-6 flex items-center">
+              <Calculator className="w-6 h-6 mr-2" />
+              {t.calculator.personalTax}
+            </h2>
+            
+            <div className="space-y-4 mb-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">年收入 (台幣)</label>
+                <input
+                  type="number"
+                  value={taxData.income}
+                  onChange={(e) => setTaxData({...taxData, income: e.target.value})}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  placeholder="例如：1000000"
+                />
+              </div>
+              
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={taxData.days183}
+                  onChange={(e) => setTaxData({...taxData, days183: e.target.checked})}
+                  className="mr-2"
+                />
+                <label className="text-sm text-gray-700">在台灣居住滿183天（稅務居民）</label>
+              </div>
+              
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={taxData.hasOverseasIncome}
+                  onChange={(e) => setTaxData({...taxData, hasOverseasIncome: e.target.checked})}
+                  className="mr-2"
+                />
+                <label className="text-sm text-gray-700">有海外收入</label>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">業務類型</label>
+                <select
+                  value={taxData.businessType}
+                  onChange={(e) => setTaxData({...taxData, businessType: e.target.value})}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="general">一般收入</option>
+                  <option value="ecommerce">電商業務</option>
+                  <option value="consulting">顧問服務</option>
+                </select>
+              </div>
+            </div>
+            
+            <button
+              onClick={handleTaxCalculation}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition-colors"
+            >
+              計算稅務負擔
+            </button>
+            
+            {taxResult && (
+              <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+                <h3 className="font-bold text-blue-800 mb-2">計算結果</h3>
+                <div className="space-y-2 text-sm">
+                  <div>個人所得稅：NT$ {taxResult.personalTax.toLocaleString()}</div>
+                  <div>營業稅：NT$ {taxResult.vatTax.toLocaleString()}</div>
+                  <div className="font-bold text-lg">總稅額：NT$ {taxResult.totalTax.toLocaleString()}</div>
+                </div>
+                {taxResult.warnings.length > 0 && (
+                  <div className="mt-4">
+                    <h4 className="font-semibold text-orange-800">注意事項：</h4>
+                    <ul className="list-disc list-inside text-sm text-orange-700">
+                      {taxResult.warnings.map((warning, idx) => (
+                        <li key={idx}>{warning}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* B00評估工具 */}
+          <div className="bg-white rounded-xl shadow-lg p-8">
+            <h2 className="text-2xl font-bold text-green-800 mb-6 flex items-center">
+              <Target className="w-6 h-6 mr-2" />
+              {t.calculator.b00Calculator}
+            </h2>
+            
+            <div className="space-y-4 mb-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">投資金額 (台幣)</label>
+                <input
+                  type="number"
+                  value={b00Data.investment}
+                  onChange={(e) => setB00Data({...b00Data, investment: e.target.value})}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                  placeholder="例如：20000000"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">預估年營收 (台幣)</label>
+                <input
+                  type="number"
+                  value={b00Data.revenue}
+                  onChange={(e) => setB00Data({...b00Data, revenue: e.target.value})}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                  placeholder="例如：30000000"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">預計聘僱員工數</label>
+                <input
+                  type="number"
+                  value={b00Data.employees}
+                  onChange={(e) => setB00Data({...b00Data, employees: e.target.value})}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                  placeholder="例如：5"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">管理經驗 (年)</label>
+                <input
+                  type="number"
+                  value={b00Data.experience}
+                  onChange={(e) => setB00Data({...b00Data, experience: e.target.value})}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                  placeholder="例如：8"
+                />
+              </div>
+            </div>
+            
+            <button
+              onClick={handleB00Assessment}
+              className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold transition-colors"
+            >
+              評估B00資格
+            </button>
+            
+            {b00Result && (
+              <div className="mt-6 p-4 bg-green-50 rounded-lg">
+                <h3 className="font-bold text-green-800 mb-2">評估結果</h3>
+                <div className="mb-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <span>綜合評分</span>
+                    <span className="font-bold text-2xl text-green-600">{b00Result.score}/100</span>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div
+                      className="bg-green-600 h-2 rounded-full"
+                      style={{width: `${b00Result.score}%`}}
+                    ></div>
+                  </div>
+                </div>
+                <div className={`p-3 rounded-lg ${b00Result.eligibility ? 'bg-green-100' : 'bg-yellow-100'}`}>
+                  <p className={`font-semibold ${b00Result.eligibility ? 'text-green-800' : 'text-yellow-800'}`}>
+                    {b00Result.eligibility ? '✅ 符合申請條件' : '⚠️ 條件需要改善'}
+                  </p>
+                </div>
+                {b00Result.issues.length > 0 && (
+                  <div className="mt-4">
+                    <h4 className="font-semibold text-red-800">需要改善：</h4>
+                    <ul className="list-disc list-inside text-sm text-red-700">
+                      {b00Result.issues.map((issue, idx) => (
+                        <li key={idx}>{issue}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+        
+        <div className="mt-12 text-center">
+          <div className="bg-yellow-100 border border-yellow-400 rounded-lg p-6">
+            <AlertCircle className="w-8 h-8 text-yellow-600 mx-auto mb-4" />
+            <h3 className="text-lg font-bold text-yellow-800 mb-2">免責聲明</h3>
+            <p className="text-yellow-700 text-sm">
+              以上計算結果僅供參考，實際稅務負擔和簽證申請條件可能因個人情況而異。
+              建議諮詢專業顧問以獲得準確的評估和建議。
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* 增強版導航欄 */}
