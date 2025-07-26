@@ -1,31 +1,57 @@
-# 使用 nginx 作為基礎映像
+# 多階段建置：第一階段建置 React 應用程式
+FROM node:18-alpine as build
+
+# 設定工作目錄
+WORKDIR /app
+
+# 複製 package.json 和 package-lock.json
+COPY package*.json ./
+
+# 安裝依賴
+RUN npm ci --only=production
+
+# 複製原始碼
+COPY . .
+
+# 建置 React 應用程式
+RUN npm run build
+
+# 第二階段：使用 nginx 提供靜態檔案
 FROM nginx:alpine
 
-# 複製網站檔案到 nginx 預設目錄
-COPY index.html /usr/share/nginx/html/
-COPY README.md /usr/share/nginx/html/
+# 複製建置好的檔案到 nginx 目錄
+COPY --from=build /app/build /usr/share/nginx/html
 
-# 建立自定義 nginx 配置
+# 建立自定義 nginx 配置以支援 React Router
 RUN echo 'server { \
     listen 80; \
     server_name localhost; \
     root /usr/share/nginx/html; \
     index index.html; \
     \
+    # React Router 支援 \
     location / { \
         try_files $uri $uri/ /index.html; \
     } \
     \
-    # 設定快取標頭 \
-    location ~* \.(css|js|png|jpg|jpeg|gif|ico|svg)$ { \
+    # 靜態資源快取 \
+    location /static/ { \
         expires 1y; \
         add_header Cache-Control "public, immutable"; \
+    } \
+    \
+    # API 代理（如果需要） \
+    location /api/ { \
+        proxy_pass http://backend:3001; \
+        proxy_set_header Host $host; \
+        proxy_set_header X-Real-IP $remote_addr; \
     } \
     \
     # 安全標頭 \
     add_header X-Frame-Options "SAMEORIGIN" always; \
     add_header X-Content-Type-Options "nosniff" always; \
     add_header X-XSS-Protection "1; mode=block" always; \
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always; \
 }' > /etc/nginx/conf.d/default.conf
 
 # 暴露 80 端口
