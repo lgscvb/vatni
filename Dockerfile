@@ -40,12 +40,6 @@ RUN echo 'server { \
         add_header Cache-Control "public, immutable"; \
     } \
     \
-    # API 代理（如果需要） \
-    location /api/ { \
-        proxy_pass http://backend:3001; \
-        proxy_set_header Host $host; \
-        proxy_set_header X-Real-IP $remote_addr; \
-    } \
     \
     # 安全標頭 \
     add_header X-Frame-Options "SAMEORIGIN" always; \
